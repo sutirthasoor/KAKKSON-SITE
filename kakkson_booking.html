@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kakkson Booking Platform</title>
+<style>
+:root {
+  --primary-yellow: #ffb300;
+  --dark-yellow: #e6a100;
+  --light-yellow: #fff6e0;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to bottom, var(--light-yellow), #fff);
+  color: #333;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.booking-section {
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border: 2px solid var(--dark-yellow);
+}
+
+.booking-section h2 {
+  color: var(--dark-yellow);
+  margin-top: 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+  margin-left: 350px;
+}
+
+.search-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  font-weight: 500;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+input, select {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-family: inherit;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--primary-yellow);
+  box-shadow: 0 0 0 2px rgba(255, 179, 0, 0.2);
+}
+
+button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: var(--primary-yellow);
+  color: #fff;
+  font-weight: 500;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background: var(--dark-yellow);
+}
+
+button.secondary {
+  background: #78909c;
+}
+
+button.secondary:hover {
+  background: #546e7a;
+}
+
+/* Hotel Cards */
+.hotel-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.hotel-card {
+  display: flex;
+  width: 100%;
+  max-width: 2000px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  background: #fff;
+  border: 2px solid var(--dark-yellow);
+}
+
+.hotel-image {
+  flex: 0 0 150px;
+}
+
+.hotel-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hotel-details {
+  flex: 1;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hotel-details h3 {
+  margin: 0 0 8px 0;
+  color: #1976d2;
+}
+
+.hotel-location {
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.hotel-select {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 15px;
+}
+
+/* Room Cards */
+.room-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.room-card {
+  width: 280px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  background: #fff;
+  border: 2px solid var(--dark-yellow);
+  display: flex;
+  flex-direction: column;
+}
+
+.room-image {
+  height: 160px;
+}
+
+.room-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.room-details {
+  padding: 15px;
+  flex: 1;
+}
+
+.room-details h3 {
+  margin: 0 0 10px 0;
+  color: #1976d2;
+}
+
+.amenities-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 10px 0;
+}
+
+.amenity-tag {
+  background: #e3f2fd;
+  color: #1976d2;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+}
+
+.room-price {
+  font-weight: bold;
+  color: var(--dark-yellow);
+  margin: 10px 0;
+  font-size: 1.2rem;
+}
+
+.room-select {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #f9f9f9;
+}
+
+.room-select select, .room-select input {
+  width: 100%;
+}
+
+/* Payment Page */
+.payment-page {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.payment-summary, .customer-form {
+  flex: 1;
+  min-width: 300px;
+  border-radius: 10px;
+  padding: 20px;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border: 2px solid var(--dark-yellow);
+}
+
+.payment-summary h3, .customer-form h3 {
+  margin-top: 0;
+  color: var(--dark-yellow);
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.summary-item {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.summary-total {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-top: 15px;
+  padding-top: 10px;
+  border-top: 2px solid #eee;
+}
+
+.customer-form input {
+  width: 100%;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+}
+
+/* Step navigation */
+.step-navigation {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .hotel-card {
+    flex-direction: column;
+  }
+  
+  .hotel-image {
+    flex: 0 0 150px;
+  }
+  
+  .payment-page {
+    flex-direction: column;
+  }
+}
+.availability-info {
+  font-size: 0.9rem;
+  color: #2e7d32;
+  margin-top: 8px;
+  font-weight: 500;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="booking-section" id="step1">
+    <h2>Welcome To Kakkson Booking Platform</h2>
+    <div class="search-form">
+      <div class="form-group">
+        <label for="checkin">Check-in Date</label>
+        <input type="date" id="checkin" required>
+      </div>
+      <div class="form-group">
+        <label for="checkout">Check-out Date</label>
+        <input type="date" id="checkout" required>
+      </div>
+      <div class="form-group">
+        <label for="adults">Number of Adults</label>
+        <input type="number" id="adults" min="1" value="1" required>
+      </div>
+      <div class="form-group">
+        <label for="rooms">Number of Rooms</label>
+        <input type="number" id="rooms" min="1" value="1" required>
+      </div>
+    </div>
+    <button onclick="searchHotels()" style="margin-left: 500px;">Search Hotels</button>
+  </div>
+
+  <div class="booking-section" id="step2" style="display:none;">
+    <h2>Select a Hotel</h2>
+    <div class="hotel-cards-container" id="hotelCards"></div>
+    <div class="step-navigation">
+      <button class="secondary" onclick="backToStep1()">Back</button>
+    </div>
+  </div>
+
+  <div class="booking-section" id="step3" style="display:none;">
+    <h2>Select a Room</h2>
+    <div class="room-cards-container" id="roomCards"></div>
+    <div class="step-navigation">
+      <button class="secondary" onclick="backToStep2()">Back</button>
+    </div>
+  </div>
+
+  <div class="booking-section" id="step4" style="display:none;">
+    <h2>Complete Your Booking</h2>
+    <div class="payment-page">
+      <div class="payment-summary">
+        <h3>Booking Summary</h3>
+        <div id="summaryDetails"></div>
+      </div>
+      <div class="customer-form">
+        <h3>Guest Information</h3>
+        <input type="text" id="custName" placeholder="Full Name" required>
+        <input type="email" id="custEmail" placeholder="Email Address" required>
+        <input type="tel" id="custPhone" placeholder="Phone Number" required>
+        <button onclick="submitBooking()">Confirm Booking</button>
+      </div>
+    </div>
+    <div class="step-navigation">
+      <button class="secondary" onclick="backToStep3()">Back</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// Load hotels from localStorage (from extranet)
+let hotels = JSON.parse(localStorage.getItem("hotels")) || [];
+
+let selectedCheckin, selectedCheckout, selectedAdults, selectedRooms;
+let availableHotels = [], selectedHotel, selectedRoom;
+let selectedMealPlan = "EP", selectedNumRooms = 1;
+
+function searchHotels() {
+  selectedCheckin = document.getElementById("checkin").value;
+  selectedCheckout = document.getElementById("checkout").value;
+  selectedAdults = parseInt(document.getElementById("adults").value);
+  selectedRooms = parseInt(document.getElementById("rooms").value);
+
+  if (!selectedCheckin || !selectedCheckout || selectedAdults < 1 || selectedRooms < 1) {
+    alert("Please fill all fields correctly");
+    return;
+  }
+
+  // Check if checkout is after checkin
+  if (new Date(selectedCheckout) <= new Date(selectedCheckin)) {
+    alert("Check-out date must be after check-in date");
+    return;
+  }
+
+  // Filter hotels with available rooms for ALL the selected dates
+  availableHotels = hotels.filter(hotel => {
+    // Check if hotel has available rooms for ALL dates in the range
+    const startDate = new Date(selectedCheckin);
+    const endDate = new Date(selectedCheckout);
+    
+    for (let date = new Date(startDate); date < endDate; date.setDate(date.getDate() + 1)) {
+      const dateStr = date.toISOString().split('T')[0];
+      let hasAvailableRoom = false;
+      
+      for (let roomType of hotel.roomTypes) {
+        // Check if room has available inventory for this specific date
+        if (hotel.inventory[dateStr] && 
+            hotel.inventory[dateStr][roomType] && 
+            hotel.inventory[dateStr][roomType].available >= selectedRooms) {
+          hasAvailableRoom = true;
+          break;
+        }
+      }
+      
+      // If any date doesn't have available rooms, exclude this hotel
+      if (!hasAvailableRoom) {
+        return false;
+      }
+    }
+    
+    return true;
+  });
+
+  if (availableHotels.length === 0) {
+    alert("No hotels available for the selected dates and room count");
+    return;
+  }
+  
+  renderHotelCards();
+  document.getElementById("step1").style.display = "none";
+  document.getElementById("step2").style.display = "block";
+}
+
+function renderHotelCards() {
+  const container = document.getElementById("hotelCards");
+  container.innerHTML = "";
+  
+  if (availableHotels.length === 0) {
+    container.innerHTML = "<p>No hotels available for the selected criteria.</p>";
+    return;
+  }
+  
+  availableHotels.forEach((hotel, idx) => {
+    const hotelCard = document.createElement("div");
+    hotelCard.className = "hotel-card";
+    
+    hotelCard.innerHTML = `
+      <div class="hotel-image">
+        <img src="${hotel.photo || 'https://via.placeholder.com/150x150?text=Hotel+Image'}" alt="${hotel.name}">
+      </div>
+      <div class="hotel-details">
+        <h3>${hotel.name}</h3>
+        <div class="hotel-location">${hotel.location}</div>
+        <div class="amenities-list">
+          ${hotel.roomTypes.map(rt => `<span class="amenity-tag">${rt}</span>`).join('')}
+        </div>
+      </div>
+      <div class="hotel-select">
+        <button onclick="selectHotel(${idx})">Select</button>
+      </div>
+    `;
+    
+    container.appendChild(hotelCard);
+  });
+}
+
+function selectHotel(idx) {
+  selectedHotel = availableHotels[idx];
+  renderRoomCards();
+  document.getElementById("step2").style.display = "none";
+  document.getElementById("step3").style.display = "block";
+}
+
+function renderRoomCards() {
+  const container = document.getElementById("roomCards");
+  container.innerHTML = "";
+  
+  if (!selectedHotel || !selectedHotel.roomTypes) {
+    container.innerHTML = "<p>No rooms available.</p>";
+    return;
+  }
+  
+  // Calculate nights
+  const checkinDate = new Date(selectedCheckin);
+  const checkoutDate = new Date(selectedCheckout);
+  const nights = Math.ceil((checkoutDate - checkinDate) / (1000 * 60 * 60 * 24));
+  
+  selectedHotel.roomTypes.forEach(roomType => {
+    // Check availability for ALL dates in the range
+    let isAvailable = true;
+    let minInventory = Infinity;
+    
+    const startDate = new Date(selectedCheckin);
+    const endDate = new Date(selectedCheckout);
+    
+    for (let date = new Date(startDate); date < endDate; date.setDate(date.getDate() + 1)) {
+      const dateStr = date.toISOString().split('T')[0];
+      
+      // Initialize inventory if it doesn't exist
+      if (!selectedHotel.inventory[dateStr]) {
+        selectedHotel.inventory[dateStr] = {};
+      }
+      if (!selectedHotel.inventory[dateStr][roomType]) {
+        selectedHotel.inventory[dateStr][roomType] = { available: 0, sold: 0 };
+      }
+      
+      // Check if room has available inventory for this specific date
+      const available = selectedHotel.inventory[dateStr][roomType].available || 0;
+      
+      if (available < selectedRooms) {
+        isAvailable = false;
+        break;
+      }
+      
+      // Track minimum inventory across dates
+      if (available < minInventory) {
+        minInventory = available;
+      }
+    }
+    
+    // Skip unavailable rooms
+    if (!isAvailable) return;
+    
+    // Calculate average rate for the stay
+    let totalEP = 0, totalCP = 0, dateCount = 0;
+    
+    for (let date = new Date(startDate); date < endDate; date.setDate(date.getDate() + 1)) {
+      const dateStr = date.toISOString().split('T')[0];
+      
+      if (selectedHotel.rates[dateStr] && selectedHotel.rates[dateStr][roomType]) {
+        totalEP += selectedHotel.rates[dateStr][roomType].ep || 0;
+        totalCP += selectedHotel.rates[dateStr][roomType].cp || 0;
+        dateCount++;
+      }
+    }
+    
+    const avgEP = dateCount > 0 ? totalEP / dateCount : 0;
+    const avgCP = dateCount > 0 ? totalCP / dateCount : 0;
+    const totalForStayEP = avgEP * nights * selectedRooms;
+    const totalForStayCP = avgCP * nights * selectedRooms;
+    
+    const roomCard = document.createElement("div");
+    roomCard.className = "room-card";
+    roomCard.id = `room-${roomType.replace(/\s+/g, '-')}`;
+    
+    roomCard.innerHTML = `
+      <div class="room-image">
+        <img src="${selectedHotel.roomPhotos && selectedHotel.roomPhotos[selectedHotel.roomTypes.indexOf(roomType)] || 
+                  'https://via.placeholder.com/280x160?text=Room+Image'}" alt="${roomType}">
+      </div>
+      <div class="room-details">
+        <h3>${roomType}</h3>
+        <div class="amenities-list">
+          ${(selectedHotel.amenities[roomType] || []).map(a => `<span class="amenity-tag">${a}</span>`).join('')}
+        </div>
+        <div class="room-price">Total for stay: ₹${selectedMealPlan === 'EP' ? totalForStayEP.toFixed(2) : totalForStayCP.toFixed(2)}</div>
+        <div class="availability-info">Maximum ${minInventory} rooms available for your dates</div>
+      </div>
+      <div class="room-select">
+        <label>Meal Plan:</label>
+        <select onchange="selectedMealPlan=this.value">
+          <option value="EP">EP (₹${avgEP.toFixed(2)}/night)</option>
+          <option value="CP">CP (₹${avgCP.toFixed(2)}/night)</option>
+        </select>
+        <label>Number of Rooms:</label>
+        <input type="number" id="rooms-${roomType.replace(/\s+/g, '-')}" value="${selectedRooms}" min="1" max="${minInventory}" 
+               onchange="validateRoomSelection('${roomType}', ${minInventory})">
+        <button onclick="selectRoom('${roomType}', ${avgEP}, ${avgCP}, ${nights})">Book Now</button>
+      </div>
+    `;
+    
+    container.appendChild(roomCard);
+  });
+  
+  if (container.innerHTML === "") {
+    container.innerHTML = "<p>No rooms available for your selected criteria. Please try different dates or fewer rooms.</p>";
+  }
+}
+
+// New function to validate room selection in real-time
+function validateRoomSelection(roomType, maxAvailable) {
+  const roomInput = document.getElementById(`rooms-${roomType.replace(/\s+/g, '-')}`);
+  const selectedRoomCount = parseInt(roomInput.value);
+  
+  if (isNaN(selectedRoomCount) || selectedRoomCount < 1) {
+    roomInput.value = 1;
+    selectedNumRooms = 1;
+    alert("Please enter a valid number of rooms (at least 1)");
+    return;
+  }
+  
+  if (selectedRoomCount > maxAvailable) {
+    roomInput.value = maxAvailable;
+    selectedNumRooms = maxAvailable;
+    alert(`Only ${maxAvailable} rooms available for your selected dates`);
+    return;
+  }
+  
+  selectedNumRooms = selectedRoomCount;
+}
+
+function selectRoom(room, rateEP, rateCP, nights) {
+  // First validate that we still have enough inventory
+  const startDate = new Date(selectedCheckin);
+  const endDate = new Date(selectedCheckout);
+  let hasSufficientInventory = true;
+  
+  for (let date = new Date(startDate); date < endDate; date.setDate(date.getDate() + 1)) {
+    const dateStr = date.toISOString().split('T')[0];
+    
+    if (!selectedHotel.inventory[dateStr] || 
+        !selectedHotel.inventory[dateStr][room] || 
+        selectedHotel.inventory[dateStr][room].available < selectedNumRooms) {
+      hasSufficientInventory = false;
+      break;
+    }
+  }
+  
+  if (!hasSufficientInventory) {
+    alert("Sorry, there's not enough inventory for your selected dates. Please try with fewer rooms.");
+    renderRoomCards(); // Refresh the room display
+    return;
+  }
+  
+  selectedRoom = room;
+  const rate = selectedMealPlan === "EP" ? parseFloat(rateEP) : parseFloat(rateCP);
+  const total = selectedRooms * rate * nights;
+  const gst = total * 0.12;
+  const finalPrice = total + gst;
+
+  document.getElementById("summaryDetails").innerHTML = `
+    <div class="summary-item"><span>Hotel:</span> <span>${selectedHotel.name}</span></div>
+    <div class="summary-item"><span>Room Type:</span> <span>${selectedRoom}</span></div>
+    <div class="summary-item"><span>Meal Plan:</span> <span>${selectedMealPlan}</span></div>
+    <div class="summary-item"><span>Check-in:</span> <span>${selectedCheckin}</span></div>
+    <div class="summary-item"><span>Check-out:</span> <span>${selectedCheckout}</span></div>
+    <div class="summary-item"><span>Nights:</span> <span>${nights}</span></div>
+    <div class="summary-item"><span>Rooms:</span> <span>${selectedRooms}</span></div>
+    <div class="summary-item"><span>Adults:</span> <span>${selectedAdults}</span></div>
+    <div class="summary-item"><span>Rate per room/night:</span> <span>₹${rate.toFixed(2)}</span></div>
+    <div class="summary-item"><span>Room total:</span> <span>₹${(rate * nights * selectedRooms).toFixed(2)}</span></div>
+    <div class="summary-item"><span>GST (12%):</span> <span>₹${gst.toFixed(2)}</span></div>
+    <div class="summary-total"><span>Final Price:</span> <span>₹${finalPrice.toFixed(2)}</span></div>
+  `;
+
+  document.getElementById("step3").style.display = "none";
+  document.getElementById("step4").style.display = "block";
+}
+function selectRoom(room, rateEP, rateCP, nights) {
+  selectedRoom = room;
+  const rate = selectedMealPlan === "EP" ? parseFloat(rateEP) : parseFloat(rateCP);
+  const total = NumRooms * rate * nights;
+  const gst = total * 0.12;
+  const finalPrice = total + gst;
+
+  document.getElementById("summaryDetails").innerHTML = `
+    <div class="summary-item"><span>Hotel:</span> <span>${selectedHotel.name}</span></div>
+    <div class="summary-item"><span>Room Type:</span> <span>${selectedRoom}</span></div>
+    <div class="summary-item"><span>Meal Plan:</span> <span>${selectedMealPlan}</span></div>
+    <div class="summary-item"><span>Check-in:</span> <span>${selectedCheckin}</span></div>
+    <div class="summary-item"><span>Check-out:</span> <span>${selectedCheckout}</span></div>
+    <div class="summary-item"><span>Nights:</span> <span>${nights}</span></div>
+    <div class="summary-item"><span>Rooms:</span> <span>${NumRooms}</span></div>
+    <div class="summary-item"><span>Adults:</span> <span>${selectedAdults}</span></div>
+    <div class="summary-item"><span>Rate per room/night:</span> <span>₹${rate.toFixed(2)}</span></div>
+    <div class="summary-item"><span>Room total:</span> <span>₹${(rate * nights * NumRooms).toFixed(2)}</span></div>
+    <div class="summary-item"><span>GST (12%):</span> <span>₹${gst.toFixed(2)}</span></div>
+    <div class="summary-total"><span>Final Price:</span> <span>₹${finalPrice.toFixed(2)}</span></div>
+  `;
+
+  document.getElementById("step3").style.display = "none";
+  document.getElementById("step4").style.display = "block";
+}
+
+function submitBooking() {
+  const name = document.getElementById("custName").value.trim();
+  const email = document.getElementById("custEmail").value.trim();
+  const phone = document.getElementById("custPhone").value.trim();
+  
+  if (!name || !email || !phone) {
+    alert("Please fill all customer details");
+    return;
+  }
+
+  // Calculate nights
+  const checkinDate = new Date(selectedCheckin);
+  const checkoutDate = new Date(selectedCheckout);
+  const nights = Math.ceil((checkoutDate - checkinDate) / (1000 * 60 * 60 * 24));
+  
+  // Update inventory in the extranet data
+  const startDate = new Date(selectedCheckin);
+  const endDate = new Date(selectedCheckout);
+  
+  for (let date = new Date(startDate); date < endDate; date.setDate(date.getDate() + 1)) {
+    const dateStr = date.toISOString().split('T')[0];
+    
+    // Find the hotel in the main hotels array
+    const hotelIndex = hotels.findIndex(h => h.name === selectedHotel.name && h.location === selectedHotel.location);
+    
+    if (hotelIndex !== -1) {
+      if (!hotels[hotelIndex].inventory[dateStr]) {
+        hotels[hotelIndex].inventory[dateStr] = {};
+      }
+      
+      if (!hotels[hotelIndex].inventory[dateStr][selectedRoom]) {
+        hotels[hotelIndex].inventory[dateStr][selectedRoom] = 0;
+      }
+      
+      // Reduce inventory by the number of rooms booked
+      hotels[hotelIndex].inventory[dateStr][selectedRoom] -= selectedNumRooms;
+      
+      // Ensure inventory doesn't go negative
+      if (hotels[hotelIndex].inventory[dateStr][selectedRoom] < 0) {
+        hotels[hotelIndex].inventory[dateStr][selectedRoom] = 0;
+      }
+    }
+  }
+  
+  // Save updated inventory back to localStorage
+  localStorage.setItem("hotels", JSON.stringify(hotels));
+  
+  // Save booking
+  let bookings = JSON.parse(localStorage.getItem("bookings")) || [];
+  bookings.push({
+    name, email, phone, 
+    hotel: selectedHotel.name, 
+    room: selectedRoom,
+    mealPlan: selectedMealPlan, 
+    numRooms: selectedNumRooms,
+    numAdults: selectedAdults,
+    checkin: selectedCheckin, 
+    checkout: selectedCheckout,
+    totalNights: nights
+  });
+  
+  localStorage.setItem("bookings", JSON.stringify(bookings));
+
+  alert("Booking Confirmed! A confirmation voucher has been sent to your email.");
+  location.reload();
+}
+
+// Navigation functions
+function backToStep1() {
+  document.getElementById("step2").style.display = "none";
+  document.getElementById("step1").style.display = "block";
+}
+
+function backToStep2() {
+  document.getElementById("step3").style.display = "none";
+  document.getElementById("step2").style.display = "block";
+}
+
+function backToStep3() {
+  document.getElementById("step4").style.display = "none";
+  document.getElementById("step3").style.display = "block";
+}
+
+// Initialize date inputs with current and next day
+window.onload = function() {
+  const today = new Date();
+  const tomorrow = new Date(today);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  
+  document.getElementById("checkin").value = today.toISOString().split('T')[0];
+  document.getElementById("checkout").value = tomorrow.toISOString().split('T')[0];
+};
+</script>
+</body>
+</html>
